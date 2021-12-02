@@ -360,3 +360,94 @@ projet.fzz
 ![alt](img/projet1.png)
 
 ----------
+# Projet 4b
+
+Découverte de la liaison serie *HardwareSerial*.
+
+Lecture depuis le port serie materiel
+
+## 4b. ennoncé
+
+- base : [projet 4](#projet-4)
+- gerrer la lecture par gestion d'evenement
+
+## 4b.1. composants
+
+- arduino uno
+- 1x led
+- 1x resistances
+
+## 4b.2. code
+
+~~~c
+bool ledState = false;
+void flushSerialInput();
+void setup()
+{
+  // definition du mode de l'I/O
+  pinMode(2, OUTPUT);
+  pinMode(3, INPUT);
+  digitalWrite(2, ledState);
+
+  // def. de la vitesse du port serie
+  Serial.begin(9600);
+
+  // Ecriture sans retour chariot
+  Serial.print("Projet 3");
+
+  // Ecriture avec retour chariot
+  Serial.println(" ecriture serie");
+}
+
+void loop()
+{
+  digitalWrite(2, ledState);
+}
+void flushSerialInput(){
+  while(Serial.available()){Serial.read();}
+}
+void SerialEvent(){
+    
+    // attente du remplissage du buffer avant lecture
+    delay(100);
+    char str[5] = "";
+    int i=0;
+    //strlen(str)< (taille Max - caractere d'arret de chaine)
+    while (Serial.available() && strlen(str) < 4)
+    {
+      char aChar ='\0';
+      aChar=Serial.read();
+      //si le caractere recu est imprimable
+      if(isPrintable(aChar)){
+        str[i++]=aChar;
+      }
+    }
+    //vidange du buffer de lecture
+    flushSerialInput();
+    str[i]='\0';
+    //si la chaine est "on" ou "1"
+    if(strcmp(str,'on') || strcmp(str,"1")){
+      ledState=true;
+    }
+    //sinon si la chaine est "off" ou "0"
+    else if (strcmp(str,"off")|| strcmp(str,"0"))
+    {
+        ledState=false;
+    }
+}
+~~~
+
+### 4b.2.1. **void SerialEvent(){...}**
+
+Fonction evenementielle déclenchée automatiquement lorsqu'un byte deviens disponible
+
+**doc :**
+- SerialEvent : [https://www.arduino.cc/reference/en/language/functions/communication/serial/serialevent/](https://www.arduino.cc/reference/en/language/functions/communication/serial/serialevent/)
+  
+### 4b.3. montage
+
+projet.fzz
+
+![alt](img/projet1.png)
+
+----------

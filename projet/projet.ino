@@ -19,8 +19,13 @@ void setup()
 
 void loop()
 {
-  if (Serial.available())
-  {
+  digitalWrite(2, ledState);
+}
+void flushSerialInput(){
+  while(Serial.available()){Serial.read();}
+}
+void SerialEvent(){
+    
     // attente du remplissage du buffer avant lecture
     delay(100);
     char str[5] = "";
@@ -47,9 +52,4 @@ void loop()
     {
         ledState=false;
     }
-  }
-  digitalWrite(2, ledState);
-}
-void flushSerialInput(){
-  while(Serial.available()){Serial.read();}
 }
