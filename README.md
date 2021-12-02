@@ -216,7 +216,7 @@ Instanciation de l'objet ***Serial*** et ouverture du port serie et def. de la v
   
   >- 300, 1200, 2400, 4800, **9600**, 19200, 38400, **57600**, **115200** : valeurs admises. les valeurs en gras (**9600, 57600, 115200**) sont des valeurs standard fortement utilisées
 
-    **doc** : [https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/))
+**doc** : [https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/))
 
 ### 3.2.2 **Serial.print(*printableValue*) / Serial.println(*printableValue*)**
 
@@ -230,8 +230,9 @@ Ecriture de contenu vers la sortie serie. **Serial.println** ajoute un saut de l
     >- *varName* : variable de tous types. les chaines de **char** doivent finir par le caractere **'\0'**
 
 **doc** :
-- [https://www.arduino.cc/reference/en/language/functions/communication/serial/println/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/println/))
-- [https://www.arduino.cc/reference/en/language/functions/communication/serial/print/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/print/))
+
+  - [https://www.arduino.cc/reference/en/language/functions/communication/serial/println/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/println/))
+  - [https://www.arduino.cc/reference/en/language/functions/communication/serial/print/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/print/))
 
 ### 3.3. montage
 
@@ -242,5 +243,112 @@ projet.fzz
 ### 3.4. doc officiel
 
 - **HarwareSerial** [https://www.arduino.cc/reference/en/language/functions/communication/serial/](https://www.arduino.cc/reference/en/language/functions/communication/serial/)
+
+----------
+
+# Projet 4
+
+Découverte de la liaison serie *HardwareSerial*.
+
+Lecture depuis le port serie materiel
+
+## 4. ennoncé
+
+- base : [projet 3](#projet-3)
+- modiffier l'etat d'allumage lors d'une saisie '1' ou 'on' sur le port serie
+  - la saisie sera effectuer sans string uniquement par tableau **char [ ]**
+- afficher l'etat d'allumage en cas de changement
+
+## 4.1. composants
+
+- arduino uno
+- 1x led
+- 1x resistances
+
+## 4.2. code
+
+~~~c
+bool ledState = false;
+void flushSerialInput();
+void setup()
+{
+  // definition du mode de l'I/O
+  pinMode(2, OUTPUT);
+  pinMode(3, INPUT);
+  digitalWrite(2, ledState);
+
+  // def. de la vitesse du port serie
+  Serial.begin(9600);
+
+  // Ecriture sans retour chariot
+  Serial.print("Projet 3");
+
+  // Ecriture avec retour chariot
+  Serial.println(" ecriture serie");
+}
+
+void loop()
+{
+  if (Serial.available())
+  {
+    // attente du remplissage du buffer avant lecture
+    delay(100);
+    char str[5] = "";
+    int i=0;
+    //strlen(str)< (taille Max - caractere d'arret de chaine)
+    while (Serial.available() && strlen(str) < 4)
+    {
+      char aChar ='\0';
+      aChar=Serial.read();
+      //si le caractere recu est imprimable
+      if(isPrintable(aChar)){
+        str[i++]=aChar;
+      }
+    }
+    //vidange du buffer de lecture
+    flushSerialInput();
+    str[i]='\0';
+    //si la chaine est "on" ou "1"
+    if(strcmp(str,'on') || strcmp(str,"1")){
+      ledState=true;
+    }
+    //sinon si la chaine est "off" ou "0"
+    else if (strcmp(str,"off")|| strcmp(str,"0"))
+    {
+        ledState=false;
+    }
+  }
+  digitalWrite(2, ledState);
+}
+void flushSerialInput(){
+  while(Serial.available()){Serial.read();}
+}
+~~~
+
+### 4.2.1. **Serial.available()**
+
+Fonction qui *retourne le nombre d'octet(s) (caractere(s)) disponible* dans le buffer de reception de la lisaison serie. A chaque execution de lecture sur le buffer le nb disponible descend
+    
+- **retour** : entier du nb d'octet disponible a la lecture
+
+**doc :**
+- [https://www.arduino.cc/reference/en/language/functions/communication/serial/available/](https://www.arduino.cc/reference/en/language/functions/communication/serial/available/)
+  
+### 4.2.2. **Serial.read()**
+
+Fonction de lecture octet par octet du buffer d'entree de Serial. un equivalent existe pour lire un stringcomplet jusqu'a un retour chariot ***serial.readString()***
+
+- **retour** : premier octet disponible a la lecture ou -1 si aucune valeur existe
+
+**doc :**
+
+- read : [https://www.arduino.cc/reference/en/language/functions/communication/serial/read/](https://www.arduino.cc/reference/en/language/functions/communication/serial/read/)
+- readString : [https://www.arduino.cc/reference/en/language/functions/communication/serial/readstring/](https://www.arduino.cc/reference/en/language/functions/communication/serial/readstring/)
+
+### 4.3. montage
+
+projet.fzz
+
+![alt](img/projet1.png)
 
 ----------

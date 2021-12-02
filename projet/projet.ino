@@ -1,4 +1,5 @@
 bool ledState = false;
+void flushSerialInput();
 void setup()
 {
   // definition du mode de l'I/O
@@ -18,21 +19,37 @@ void setup()
 
 void loop()
 {
-  // lecture de l'etat de l'entrée
-  bool isD3Pushed = digitalRead(3);
-  if (isD3Pushed)
+  if (Serial.available())
   {
-    // Ecriture avec retour chariot
-    Serial.println("button enfoncé");
-
-    ledState = !ledState;
-
-    // ecriture du nouvel etat d'allumage
-    Serial.print("Etat d'allumage : ");
-    Serial.println(ledState);
-
-    // attente du relachement du button avant nouveau cycle de loop
-    delay(800);
+    // attente du remplissage du buffer avant lecture
+    delay(100);
+    char str[5] = "";
+    int i=0;
+    //strlen(str)< (taille Max - caractere d'arret de chaine)
+    while (Serial.available() && strlen(str) < 4)
+    {
+      char aChar ='\0';
+      aChar=Serial.read();
+      //si le caractere recu est imprimable
+      if(isPrintable(aChar)){
+        str[i++]=aChar;
+      }
+    }
+    //vidange du buffer de lecture
+    flushSerialInput();
+    str[i]='\0';
+    //si la chaine est "on" ou "1"
+    if(strcmp(str,'on') || strcmp(str,"1")){
+      ledState=true;
+    }
+    //sinon si la chaine est "off" ou "0"
+    else if (strcmp(str,"off")|| strcmp(str,"0"))
+    {
+        ledState=false;
+    }
   }
   digitalWrite(2, ledState);
+}
+void flushSerialInput(){
+  while(Serial.available()){Serial.read();}
 }
