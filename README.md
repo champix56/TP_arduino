@@ -98,6 +98,7 @@ projet1.fzz
 ![projet 1](./img/projet1.png)
 
 ----------
+
 # Projet 2
 
 lecture numerique TOR sans gestion d'interruption, et ecriture en fonction de l'etat de l'entrée
@@ -140,5 +141,88 @@ Lecture d'etat numerique HAUT ou BAS simple sur une entrée numerique (TOR)
 
 projet.fzz
 ![projet 2](img/projet2.png)
+
+----------
+
+# Projet 3
+
+Découverte de la liaison serie *HardwareSerial*.
+
+Ecriture vers le port serie materiel
+
+## 3. ennoncé
+
+- recuperer et stocker l'etat d'allumage
+- modiffier l'etat d'allumage lors d'un click sur le boutton
+- afficher l'etat d'allumage en cas de changement
+
+## 3.1. composants
+
+- arduino uno
+- 1x push button
+- 1x led
+- 2x resistances
+
+## 3.2. code
+
+~~~c
+    void setup() {
+        //definition du mode de l'I/O
+        pinMode(2, OUTPUT);
+        pinMode(3, INPUT);
+        //def. de la vitesse du port serie
+        Serial.begin(9600);
+    }
+
+    void loop() {
+        //lecture de l'etat de l'entrée
+        bool isD3Pushed=digitalRead(3);
+        if(isD3Pushed){
+            digitalWrite(2, HIGH);
+            Serial.println("DIODE allumée");
+        }
+        else {
+            digitalWrite(2, LOW);
+            Serial.println("DIODE eteinte");
+        }
+    }
+~~~
+
+### 3.2.1 **Serial.begin(*serialSpeed*)**
+
+Instanciation de l'objet ***Serial*** et ouverture du port serie et def. de la vitesse de transmition.
+
+- *serialSpeed*
+  
+  Vitesse en bits/sec (bauds)
+  
+  >- 300, 1200, 2400, 4800, **9600**, 19200, 38400, **57600**, **115200** : valeurs admises. les valeurs en gras (**9600, 57600, 115200**) sont des valeurs standard fortement utilisées
+
+    **doc** : [https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/))
+
+### 3.2.2 **Serial.print(*printableValue*) / Serial.println(*printableValue*)**
+
+Ecriture de contenu vers la sortie serie. **Serial.println** ajoute un saut de ligne en fin d'impression de contenu vers la sortie
+
+- *printableValue*
+    Contenu imprimable a difuser de n'importe quel type de données
+    >
+    >- "const char" : chaine de caractere constante
+    >- 123 ou 123.45 : entier ou float
+    >- *varName* : variable de tous types. les chaines de **char** doivent finir par le caractere **'\0'**
+
+**doc** :
+- [https://www.arduino.cc/reference/en/language/functions/communication/serial/println/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/println/))
+- [https://www.arduino.cc/reference/en/language/functions/communication/serial/print/]([https://link](https://www.arduino.cc/reference/en/language/functions/communication/serial/print/))
+
+### 3.3. montage
+
+projet.fzz
+
+![alt](img/projet2.png)
+
+### 3.4. doc officiel
+
+- **HarwareSerial** [https://www.arduino.cc/reference/en/language/functions/communication/serial/](https://www.arduino.cc/reference/en/language/functions/communication/serial/)
 
 ----------
