@@ -153,7 +153,7 @@ Ecriture vers le port serie materiel
 ## 3. ennoncé
 
 - recuperer et stocker l'etat d'allumage
-- modiffier l'etat d'allumage lors d'un click sur le boutton
+- stocker & modiffier l'etat d'allumage uniquement lors d'un nouveaux click sur le boutton
 - afficher l'etat d'allumage en cas de changement
 
 ## 3.1. composants
@@ -166,25 +166,43 @@ Ecriture vers le port serie materiel
 ## 3.2. code
 
 ~~~c
-    void setup() {
-        //definition du mode de l'I/O
+    bool ledState = false;
+    void setup()
+    {
+        // definition du mode de l'I/O
         pinMode(2, OUTPUT);
         pinMode(3, INPUT);
-        //def. de la vitesse du port serie
+        digitalWrite(2, ledState);
+
+        // def. de la vitesse du port serie
         Serial.begin(9600);
+
+        //Ecriture sans retour chariot
+        Serial.print("Projet 3");
+        
+        //Ecriture avec retour chariot
+        Serial.println(" ecriture serie");
     }
 
-    void loop() {
-        //lecture de l'etat de l'entrée
-        bool isD3Pushed=digitalRead(3);
-        if(isD3Pushed){
-            digitalWrite(2, HIGH);
-            Serial.println("DIODE allumée");
+    void loop()
+    {
+        // lecture de l'etat de l'entrée
+        bool isD3Pushed = digitalRead(3);
+        if (isD3Pushed)
+        {
+            //Ecriture avec retour chariot 
+            Serial.println("button enfoncé");
+            
+            ledState=!ledState;
+
+            //ecriture du nouvel etat d'allumage
+            Serial.print("Etat d'allumage : ");
+            Serial.println(ledState);
+
+            //attente du relachement du button avant nouveau cycle de loop
+            delay(800);
         }
-        else {
-            digitalWrite(2, LOW);
-            Serial.println("DIODE eteinte");
-        }
+         digitalWrite(2, ledState);
     }
 ~~~
 
