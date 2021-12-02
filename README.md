@@ -345,6 +345,14 @@ Fonction de lecture octet par octet du buffer d'entree de Serial. un equivalent 
 - read : [https://www.arduino.cc/reference/en/language/functions/communication/serial/read/](https://www.arduino.cc/reference/en/language/functions/communication/serial/read/)
 - readString : [https://www.arduino.cc/reference/en/language/functions/communication/serial/readstring/](https://www.arduino.cc/reference/en/language/functions/communication/serial/readstring/)
 
+### 4.2.3. **isPrintable(aChar)**
+
+fonction de verification de l'existance d'un symbole affichable pour la valeur d'un caractere
+
+- **retour** : vrai si le caractere est imprimable et faux si c'est un caractere de controle non affichable
+
+- *aChar* : un caractere unique à tester
+
 ### 4.3. montage
 
 projet.fzz
