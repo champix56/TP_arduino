@@ -1,9 +1,11 @@
 void setup() {
-  // put your setup code here, to run once:
-
+  //definition du mode de l'I/O
+  pinMode(2, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  digitalWrite(2, HIGH);
+  delay(750);
+  digitalWrite(2, LOW);
+  delay(750);
 }
