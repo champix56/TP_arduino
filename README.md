@@ -521,4 +521,58 @@ avec regulation de sortie pwm
 
 ![projet 5](img/projet5-pwmDim.PNG)
 
+## 5a. evolution
+
+transformation du projet en lecteur de tension (voltmetre) pour une tension maximal de 31v et une intensité d'entrée depassant pas 200mA.
+
+utilisation de la loi de kirchhoff, le pont diviseur de tension.
+
+![calcul loi kirchhoff](img/pont-res.png)
+
+pour limiter 31v a une sortie 5v voici les valeurs :
+
+- R1 : **6.8K&ohm; + 1k&ohm;**
+  
+  >l'intensité (I=U/R) max traverssant cette resistance est de :
+  >
+  >31 / 7800 = 0.00397A
+  >
+  >soit 3mA
+
+- R2 : **1.5K&ohm;**
+  
+## 5a.2. code
+
+~~~c
+void setup()
+{
+  // def. de la vitesse du port serie
+  Serial.begin(9600);
+
+  // Ecriture sans retour chariot
+  Serial.println("Projet 5");
+}
+
+void loop()
+{
+  uint8_t potValue = analogRead(A1);
+  analogWrite(A0, potValue);
+  
+  //ratio pour 31v
+  float ratio = 31/5;
+  //calcul de tension
+  float voltValue= (( 5 / 1024 ) * potValue)*ratio;
+  
+  Serial.print("Valeur de tension : ");
+  Serial.print(voltValue);
+  Serial.print("V");
+}
+~~~
+
+## 5a.3. montage
+
+projet.fzz
+
+![projet.fzz](img/projet5-kirchhoff.png)
+
 ----------
