@@ -95,7 +95,7 @@ Ecriture etat numerique HAUT ou BAS *simple et constant ou remplissage cyclique 
 
 projet1.fzz
 
-![projet 1](./img/projet1.png)
+![projet 1](./img/projet1.PNG)
 
 ----------
 
@@ -140,7 +140,7 @@ Lecture d'etat numerique HAUT ou BAS simple sur une entrée numerique (TOR)
 ## 2.3. montage
 
 projet.fzz
-![projet 2](img/projet2.png)
+![projet 2](img/projet2.PNG)
 
 ----------
 
@@ -238,7 +238,7 @@ Ecriture de contenu vers la sortie serie. **Serial.println** ajoute un saut de l
 
 projet.fzz
 
-![alt](img/projet2.png)
+![alt](img/projet2.PNG)
 
 ### 3.4. doc officiel
 
@@ -357,7 +357,7 @@ fonction de verification de l'existance d'un symbole affichable pour la valeur d
 
 projet.fzz
 
-![alt](img/projet1.png)
+![alt](img/projet1.PNG)
 
 ----------
 # Projet 4b
@@ -448,7 +448,7 @@ Fonction evenementielle déclenchée automatiquement lorsqu'un byte deviens disp
 
 projet.fzz
 
-![alt](img/projet1.png)
+![alt](img/projet1.PNG)
 
 ----------
 
@@ -456,7 +456,7 @@ projet.fzz
 
 Découverte du convertisseur Analogique / numerique (CAN/DAC) 10bits
 
-![convertion analogique / numérique](img/dac.png)
+![convertion analogique / numérique](img/dac.PNG)
 
 ## 5. ennoncé
 
@@ -530,7 +530,7 @@ utilisation de la loi de kirchhoff, le pont diviseur de tension.
 calculateur en ligne :
 [https://www.digikey.fr/fr/resources/conversion-calculators/conversion-calculator-voltage-divider]([https://link](https://www.digikey.fr/fr/resources/conversion-calculators/conversion-calculator-voltage-divider))
 
-![calcul loi kirchhoff](img/pont-res.png)
+![calcul loi kirchhoff](img/pont-res.PNG)
 
 
 pour limiter 31v a une sortie 5v voici les valeurs :
@@ -577,6 +577,6 @@ void loop()
 
 projet.fzz
 
-![projet.fzz](img/projet5-kirchhoff.png)
+![projet.fzz](img/projet5-kirchhoff.PNG)
 
 ----------
