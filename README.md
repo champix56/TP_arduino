@@ -527,7 +527,11 @@ transformation du projet en lecteur de tension (voltmetre) pour une tension maxi
 
 utilisation de la loi de kirchhoff, le pont diviseur de tension.
 
+calculateur en ligne :
+[https://www.digikey.fr/fr/resources/conversion-calculators/conversion-calculator-voltage-divider]([https://link](https://www.digikey.fr/fr/resources/conversion-calculators/conversion-calculator-voltage-divider))
+
 ![calcul loi kirchhoff](img/pont-res.png)
+
 
 pour limiter 31v a une sortie 5v voici les valeurs :
 
@@ -562,7 +566,7 @@ void loop()
   float ratio = 31/5;
   //calcul de tension
   float voltValue= (( 5 / 1024 ) * potValue)*ratio;
-  
+
   Serial.print("Valeur de tension : ");
   Serial.print(voltValue);
   Serial.print("V");
