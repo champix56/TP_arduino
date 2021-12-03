@@ -523,7 +523,7 @@ avec regulation de sortie pwm
 
 ## 5a. evolution
 
-transformation du projet en lecteur de tension (voltmetre) pour une tension maximal de 31v et une intensité d'entrée depassant pas 200mA.
+transformation du projet en lecteur de tension (voltmetre) pour une tension maximal de 31v et une intensité d'entrée depassant pas 200mA **en utilisant des valeur normalisées de resistance**.
 
 utilisation de la loi de kirchhoff, le pont diviseur de tension.
 
