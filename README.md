@@ -451,3 +451,74 @@ projet.fzz
 ![alt](img/projet1.png)
 
 ----------
+
+# Projet 5
+
+Découverte du convertisseur Analogique / numerique (CAN/DAC) 10bits
+
+![convertion analogique / numérique](img/dac.png)
+
+## 5. ennoncé
+
+- prendre la mesure en volt de la sortie d'un potentiometre lineaire
+- ecrire dans la console la tension
+
+## 5.1. composants
+
+- arduino uno
+- 1x potentiometre lineaire
+
+## 5.2. code
+
+~~~c
+void setup()
+{
+  // def. de la vitesse du port serie
+  Serial.begin(9600);
+
+  // Ecriture sans retour chariot
+  Serial.println("Projet 5");
+}
+
+void loop()
+{
+  uint8_t potValue = analogRead(A1);
+  analogWrite(A0, potValue);
+  
+  float voltValue= ( 5 / 1024 ) * potValue;
+  Serial.print("Valeur de tension : ");
+  Serial.print(voltValue);
+  Serial.print("V");
+}
+~~~
+
+### 5.2.1. ***analogRead(*IOPin*)***
+
+- **retour** : entier entre 0 et 1023 correspondant a la conversion de la tension d'entrée en fonction de la tension de ref de la carte (+5v) soit 5/1024 = 0.0048828125v par palier
+
+- *IOPin* : [cf. : valeur ou nom de l'entrée](#iopin)
+
+**doc :**
+- analogRead : [https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/)
+  
+### 5.2.1. ***analogWrite(*IOPin*, *analogValue*)***
+
+- *IOPin* : [cf. : valeur ou nom de l'entrée](#iopin)
+- *analogValue* : valeur entiere de 0 à 1023 representant une fraction de la tension max
+
+**doc :**
+- analogWrite : [https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/](https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/)
+
+## 5.3 montage
+
+projet.fzz
+
+analogique
+
+![projet 5](img/projet5.PNG)
+
+avec regulation de sortie pwm
+
+![projet 5](img/projet5-pwmDim.PNG)
+
+----------
